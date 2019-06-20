@@ -237,6 +237,6 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
+                    });
     }
 }
