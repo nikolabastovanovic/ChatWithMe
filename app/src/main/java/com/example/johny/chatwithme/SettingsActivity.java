@@ -152,10 +152,6 @@ public class SettingsActivity extends AppCompatActivity {
                     }
                 });
             }
-            else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE)
-            {
-                Exception error = result.getError();
-            }
         }
 
     }
@@ -175,11 +171,11 @@ public class SettingsActivity extends AppCompatActivity {
         }
         else
         {
-            HashMap<String, String> profileMap = new HashMap<>();
+            HashMap<String, Object> profileMap = new HashMap<>();
             profileMap.put("uid", currentUserId);
             profileMap.put("name", setUserName);
             profileMap.put("status", setStatus);
-            RootRef.child("Users").child(currentUserId).setValue(profileMap)
+            RootRef.child("Users").child(currentUserId).updateChildren(profileMap)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task)
