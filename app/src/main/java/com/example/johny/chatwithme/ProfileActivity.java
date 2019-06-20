@@ -26,7 +26,8 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference userRef;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_activity);
 
@@ -34,8 +35,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         recieverUserID = getIntent().getExtras().get("visitUserID").toString();
 
-        userProfileImage = (CircleImageView) findViewById(R.id.users_profile_image);
-        userProfileName = (TextView) findViewById(R.id.user_profile_name);
+        userProfileImage = (CircleImageView) findViewById(R.id.visit_profile_image);
+        userProfileName = (TextView) findViewById(R.id.visit_username);
         userProfileStatus = (TextView) findViewById(R.id.visit_user_status);
         sendMessageRequestButton = (Button) findViewById(R.id.send_message_request_button);
 
@@ -45,9 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
     private void RetrieveUserInfo()
     {
         userRef.child(recieverUserID).addValueEventListener(new ValueEventListener(){
-           @Override
-           public void onDataChange(DataSnapshot dataSnapshot)
-           {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 if((dataSnapshot.exists()) && (dataSnapshot.hasChild("image")))
                 {
                     String userImage = dataSnapshot.child("image").getValue().toString();
@@ -66,13 +67,13 @@ public class ProfileActivity extends AppCompatActivity {
                     userProfileName.setText(userName);
                     userProfileStatus.setText(userStatus);
                 }
-           }
+            }
 
-           @Override
+            @Override
             public void onCancelled(DatabaseError databaseError)
-           {
+            {
 
-           }
+            }
         });
     }
 }
