@@ -1,5 +1,7 @@
 package com.example.johny.chatwithme;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -64,7 +66,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MessageViewHolder holder, int position)
+    public void onBindViewHolder(@NonNull final MessageViewHolder holder, final int position)
     {
         String messageSenderId = mAuth.getCurrentUser().getUid();
         Messages messages = userMessagesList.get(position);
@@ -129,6 +131,39 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                 holder.receiverProfileImage.setVisibility(View.VISIBLE);
                 holder.messageReceiverPicture.setVisibility(View.VISIBLE);
                 Picasso.get().load(messages.getMessage()).into(holder.messageReceiverPicture);
+            }
+        }
+        else if (fromMessageType.equals("pdf") || fromMessageType.equals("docx"))
+        {
+            if (fromUserID.equals(messageSenderId))
+            {
+                holder.messageSenderPicture.setVisibility(View.VISIBLE);
+
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/chatwithme-94276.appspot.com/o/Image%20files%2Ffile.png?alt=media&token=9acfe831-536a-4c7b-99b2-e17b6c37789e")
+                        .into(holder.messageSenderPicture);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                        holder.itemView.getContext().startActivity(intent);
+                    }
+                });
+            }
+            else
+            {
+                holder.receiverProfileImage.setVisibility(View.VISIBLE);
+                holder.messageReceiverPicture.setVisibility(View.VISIBLE);
+                Picasso.get().load("https://firebasestorage.googleapis.com/v0/b/chatwithme-94276.appspot.com/o/Image%20files%2Ffile.png?alt=media&token=9acfe831-536a-4c7b-99b2-e17b6c37789e")
+                        .into(holder.messageReceiverPicture);
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
+                        holder.itemView.getContext().startActivity(intent);
+                    }
+                });
             }
         }
     }
