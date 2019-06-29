@@ -34,7 +34,7 @@ public class ChatFragment extends Fragment {
     private RecyclerView chatList;
     private DatabaseReference chatsRef, usersRef;
     private FirebaseAuth mAuth;
-    private String currentUserID;
+    private String currentUserID = "";
 
     public ChatFragment() {
         // Required empty public constructor
