@@ -110,7 +110,8 @@ public class ChatActivity extends AppCompatActivity {
                 {
                     "Images",
                     "PDF",
-                    "MS Word"
+                    "MS Word",
+                    "Location"
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(ChatActivity.this);
                 builder.setTitle("Select File Type");
@@ -141,6 +142,11 @@ public class ChatActivity extends AppCompatActivity {
                             intent.setAction(Intent.ACTION_GET_CONTENT);
                             intent.setType("application/msword");
                             startActivityForResult(intent.createChooser(intent, "Select Word file"), 438);
+                        }
+                        if (i == 3)
+                        {
+                            messageInputText.setText("Location");
+                            SendMessage();
                         }
                     }
                 });
