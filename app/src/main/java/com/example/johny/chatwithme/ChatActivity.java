@@ -4,8 +4,13 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -45,6 +50,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.Manifest;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -72,6 +78,11 @@ public class ChatActivity extends AppCompatActivity {
     private Uri fileUri;
 
     private ProgressDialog loadingBar;
+
+    private LocationManager locationManager;
+    private String lattitude, longitude, completeLocation;
+    private static final int REQUEST_LOCATION = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +112,8 @@ public class ChatActivity extends AppCompatActivity {
         });
 
         DisplayLastSeen();
+
+        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         sendFilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,7 +158,16 @@ public class ChatActivity extends AppCompatActivity {
                         }
                         if (i == 3)
                         {
-                            messageInputText.setText("Location");
+                            locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                            {
+                                buildAlertMessageNoGps();
+                            }
+                            if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                            {
+                                getLocation();
+                            }
+                            messageInputText.setText(completeLocation);
                             SendMessage();
                         }
                     }
@@ -463,4 +485,74 @@ public class ChatActivity extends AppCompatActivity {
             });
         }
     }
+
+    private void getLocation() {
+        if (ActivityCompat.checkSelfPermission(ChatActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission
+                (ChatActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(ChatActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
+
+        } else {
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            Location location1 = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            Location location2 = locationManager.getLastKnownLocation(LocationManager.PASSIVE_PROVIDER);
+
+            if (location != null) {
+                double latti = location.getLatitude();
+                double longi = location.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                completeLocation = ("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude).toString();
+
+            } else  if (location1 != null) {
+                double latti = location1.getLatitude();
+                double longi = location1.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                completeLocation = ("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude).toString();
+
+
+            } else  if (location2 != null) {
+                double latti = location2.getLatitude();
+                double longi = location2.getLongitude();
+                lattitude = String.valueOf(latti);
+                longitude = String.valueOf(longi);
+
+                completeLocation = ("Your current location is"+ "\n" + "Lattitude = " + lattitude
+                        + "\n" + "Longitude = " + longitude).toString();
+
+            }else{
+
+                Toast.makeText(this,"Unble to Trace your location",Toast.LENGTH_SHORT).show();
+
+            }
+        }
+    }
+
+    protected void buildAlertMessageNoGps() {
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please Turn ON your GPS Connection")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 }
