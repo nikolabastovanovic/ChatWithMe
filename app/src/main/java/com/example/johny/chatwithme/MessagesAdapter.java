@@ -167,10 +167,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                     {
                         CharSequence options[] = new CharSequence[]
                         {
-                            "Delete for me",
                             "Download and View Document",
                             "Cancel",
-                            "Delete for everyone"
+                            "Delete"
                         };
                         AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                         builder.setTitle("Delete Message");
@@ -178,18 +177,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                             @Override
                             public void onClick(DialogInterface dialog, int i)
                             {
+
                                 if (i == 0)
-                                {
-                                    deleteSendMessage(position, holder);
-                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                                else if (i == 1)
                                 {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
                                     holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (i == 3)
+                                else if (i == 2)
                                 {
                                     deleteMessage(position, holder);
                                     Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
@@ -203,9 +197,8 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
-                                        "Delete for me",
                                         "Cancel",
-                                        "Delete for everyone"
+                                        "Delete"
                                 };
                         AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                         builder.setTitle("Delete Message");
@@ -213,13 +206,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                             @Override
                             public void onClick(DialogInterface dialog, int i)
                             {
-                                if (i == 0)
-                                {
-                                    deleteSendMessage(position, holder);
-                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                                else if (i == 2)
+                                if (i == 1)
                                 {
                                     deleteMessage(position, holder);
                                     Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
@@ -233,10 +220,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
-                                        "Delete for me",
                                         "View Image",
                                         "Cancel",
-                                        "Delete for everyone"
+                                        "Delete"
                                 };
                         AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
                         builder.setTitle("Delete Message");
@@ -246,17 +232,11 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                             {
                                 if (i == 0)
                                 {
-                                    deleteSendMessage(position, holder);
-                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                                else if (i == 1)
-                                {
                                     Intent intent = new Intent(holder.itemView.getContext(), ImageViewActivity.class);
                                     intent.putExtra("url", userMessagesList.get(position).getMessage());
                                     holder.itemView.getContext().startActivity(intent);
                                 }
-                                else if (i == 3)
+                                else if (i == 2)
                                 {
                                     deleteMessage(position, holder);
                                     Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
@@ -281,7 +261,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
-                                        "Delete for me",
                                         "Download and View Document",
                                         "Cancel"
                                 };
@@ -293,36 +272,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                             {
                                 if (i == 0)
                                 {
-                                    deleteReceiveMessage(position, holder);
-                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                                else if (i == 1)
-                                {
                                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(userMessagesList.get(position).getMessage()));
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                            }
-                        });
-                        builder.show();
-                    }
-                    else if (userMessagesList.get(position).getType().equals("text"))
-                    {
-                        CharSequence options[] = new CharSequence[]
-                                {
-                                        "Delete for me",
-                                        "Cancel",
-                                };
-                        AlertDialog.Builder builder = new AlertDialog.Builder(holder.itemView.getContext());
-                        builder.setTitle("Delete Message");
-                        builder.setItems(options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int i)
-                            {
-                                if (i == 0)
-                                {
-                                    deleteReceiveMessage(position, holder);
-                                    Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                             }
@@ -333,7 +283,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                     {
                         CharSequence options[] = new CharSequence[]
                                 {
-                                        "Delete for me",
                                         "View Image",
                                         "Cancel"
                                 };
@@ -347,12 +296,6 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Messag
                                 {
                                     deleteReceiveMessage(position, holder);
                                     Intent intent = new Intent(holder.itemView.getContext(), MainActivity.class);
-                                    holder.itemView.getContext().startActivity(intent);
-                                }
-                                else if (i == 1)
-                                {
-                                    Intent intent = new Intent(holder.itemView.getContext(), ImageViewActivity.class);
-                                    intent.putExtra("url", userMessagesList.get(position).getMessage());
                                     holder.itemView.getContext().startActivity(intent);
                                 }
                             }

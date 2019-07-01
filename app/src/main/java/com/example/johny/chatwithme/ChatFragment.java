@@ -2,6 +2,7 @@ package com.example.johny.chatwithme;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -100,6 +101,7 @@ public class ChatFragment extends Fragment {
                                 if (state.equals("online"))
                                 {
                                     holder.userStatus.setText("online");
+                                    holder.userStatus.setTextColor(Color.GREEN);
                                 }
                                 else if (state.equals("offline"))
                                 {

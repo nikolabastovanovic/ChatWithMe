@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,6 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     private CircleImageView userProfileImage;
     private TextView userProfileName, userProfileStatus;
     private Button sendMessageRequestButton, declineRequestButton;
+    private Toolbar mToolBar;
 
     private DatabaseReference userRef, chatReqRef, contactsRef, notificationRef;
     private FirebaseAuth mAuth;

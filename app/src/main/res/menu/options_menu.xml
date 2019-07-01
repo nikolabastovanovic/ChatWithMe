@@ -8,12 +8,12 @@
         >
     </item>
 
-    <item
+    <!--<item
         android:title="Create Group"
         android:id="@+id/main_create_group_option"
         app:showAsAction="never"
         >
-    </item>
+    </item>-->
 
     <item
         android:title="Settings"

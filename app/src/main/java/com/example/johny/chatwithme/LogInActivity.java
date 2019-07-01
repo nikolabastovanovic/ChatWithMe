@@ -31,7 +31,7 @@ public class LogInActivity extends AppCompatActivity {
 
     private Button LoginButton, PhoneLoginButton;
     private EditText UserEmail, UserPassword;
-    private TextView NeedNewAccountLink, ForgetPasswordLink;
+    private TextView NeedNewAccountLink;
 
     private DatabaseReference userRef;
 
@@ -130,7 +130,6 @@ public class LogInActivity extends AppCompatActivity {
         UserEmail = (EditText) findViewById(R.id.login_email);
         UserPassword = (EditText) findViewById(R.id.login_password);
         NeedNewAccountLink = (TextView) findViewById(R.id.need_new_account_link);
-        ForgetPasswordLink = (TextView) findViewById(R.id.forget_password_link);
         loadingBar = new ProgressDialog(this);
     }
 
