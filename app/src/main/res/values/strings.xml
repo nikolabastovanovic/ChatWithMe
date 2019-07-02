@@ -1,4 +1,6 @@
 <resources>
+    <string name="google_maps_API_key">AIzaSyBTokMuGLOnbt-4yNe8WqtMn6Tb66d1dHU</string>
+
     <string name="app_name">ChatWithMe!</string>
 
     <!-- TODO: Remove or change this placeholder text -->
